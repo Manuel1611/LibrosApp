@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">LibrosApp</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="textVender">Vender</string>
+    <string name="textLibros">Libros</string>
+    <string name="textBienvenido">Bienvenido a la venta de libros</string>
+    <string name="textAdd">Añadir</string>
+    <string name="contLibro">Libro</string>
+    <string name="textVolver">Volver</string>
+    <string name="textAddLibro">Añadir libro</string>
+    <string name="textTitulo">Título</string>
+    <string name="textEditorial">Editorial</string>
+    <string name="textPaginas">Páginas</string>
+    <string name="textAutor">Autor</string>
+    <string name="textUrl">URL de la imagen</string>
+    <string name="textEditar">Editar</string>
+    <string name="textBorrar">Borrar libro</string>
+    <string name="textSeleccionaCualQuieresVender">Selecciona el libro que quieres vender</string>
+    <string name="textPrecio">Precio de venta</string>
+    <string name="textAddUnLibro">Añade un libro</string>
+    <string name="textEditaBorraLibro">Edita/borra un libro</string>
+    <string name="textVendeEsteLibro">Vende este libro</string>
+</resources>
