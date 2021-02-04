@@ -21,10 +21,6 @@ import com.example.librosapp.model.pojo.Libro;
 import com.example.librosapp.model.pojo.Venta;
 import com.example.librosapp.viewmodel.ViewModel;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-
 public class FragmentoAddVenta extends Fragment {
 
     NavController navController;
@@ -85,37 +81,8 @@ public class FragmentoAddVenta extends Fragment {
 
                     Venta venta = new Venta(libro.getId(), precioDouble);
 
-                    Call<Long> ventaCall = viewModel.getVentasClient().postVenta(venta);
-
-                    ventaCall.enqueue(new Callback<Long>() {
-                        @Override
-                        public void onResponse(Call<Long> call, Response<Long> response) {
-
-                            libro.setNumVentas(libro.getNumVentas() + 1);
-
-                            Call<Boolean> libroCall = viewModel.getLibroClient().putLibro(libro.getId(), libro);
-
-                            libroCall.enqueue(new Callback<Boolean>() {
-                                @Override
-                                public void onResponse(Call<Boolean> call, Response<Boolean> response) {
-
-                                    navController.navigate(R.id.action_fragmentoAddVenta_to_fragmentoVentas);
-
-                                }
-
-                                @Override
-                                public void onFailure(Call<Boolean> call, Throwable t) {
-
-                                }
-                            });
-
-                        }
-
-                        @Override
-                        public void onFailure(Call<Long> call, Throwable t) {
-
-                        }
-                    });
+                    viewModel.insertarVenta(venta, libro);
+                    navController.navigate(R.id.action_fragmentoAddVenta_to_fragmentoVentas);
 
                 }
 

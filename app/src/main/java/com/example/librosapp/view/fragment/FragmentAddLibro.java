@@ -20,10 +20,6 @@ import com.example.librosapp.R;
 import com.example.librosapp.model.pojo.Libro;
 import com.example.librosapp.viewmodel.ViewModel;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-
 public class FragmentAddLibro extends Fragment {
 
     Button btVolver, btAdd;
@@ -83,21 +79,8 @@ public class FragmentAddLibro extends Fragment {
 
                     Libro libro = new Libro(titulo, editorial, paginasLong, autor, url, 0);
 
-                    Call<Long> libroCall = viewModel.getLibroClient().postLibro(libro);
-
-                    libroCall.enqueue(new Callback<Long>() {
-                        @Override
-                        public void onResponse(Call<Long> call, Response<Long> response) {
-
-                            navController.navigate(R.id.action_fragmentAddLibro_to_fragmentoLibros);
-
-                        }
-
-                        @Override
-                        public void onFailure(Call<Long> call, Throwable t) {
-
-                        }
-                    });
+                    viewModel.insertarLibro(libro);
+                    navController.navigate(R.id.action_fragmentAddLibro_to_fragmentoLibros);
 
                 }
 

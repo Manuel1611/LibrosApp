@@ -23,10 +23,6 @@ import com.example.librosapp.R;
 import com.example.librosapp.model.pojo.Libro;
 import com.example.librosapp.viewmodel.ViewModel;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-
 public class FragmentoEditLibro extends Fragment {
 
     Button btVolver, btEdit, btBorrar;
@@ -92,21 +88,8 @@ public class FragmentoEditLibro extends Fragment {
 
                     Libro libro = new Libro(titulo, editorial, paginasLong, autor, url);
 
-                    Call<Boolean> libroCall = viewModel.getLibroClient().putLibro(viewModel.getLibro().getId(), libro);
-
-                    libroCall.enqueue(new Callback<Boolean>() {
-                        @Override
-                        public void onResponse(Call<Boolean> call, Response<Boolean> response) {
-
-                            navController.navigate(R.id.action_fragmentoEditLibro_to_fragmentoLibros);
-
-                        }
-
-                        @Override
-                        public void onFailure(Call<Boolean> call, Throwable t) {
-
-                        }
-                    });
+                    viewModel.editarLibro(viewModel.getLibro().getId(), libro);
+                    navController.navigate(R.id.action_fragmentoEditLibro_to_fragmentoLibros);
 
                 }
 
@@ -125,21 +108,8 @@ public class FragmentoEditLibro extends Fragment {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 
-                        Call<Boolean> libroCall = viewModel.getLibroClient().deleteLibro(viewModel.getLibro().getId());
-
-                        libroCall.enqueue(new Callback<Boolean>() {
-                            @Override
-                            public void onResponse(Call<Boolean> call, Response<Boolean> response) {
-
-                                navController.navigate(R.id.action_fragmentoEditLibro_to_fragmentoLibros);
-
-                            }
-
-                            @Override
-                            public void onFailure(Call<Boolean> call, Throwable t) {
-
-                            }
-                        });
+                        viewModel.eliminarLibro(viewModel.getLibro().getId());
+                        navController.navigate(R.id.action_fragmentoEditLibro_to_fragmentoLibros);
 
                     }
                 });

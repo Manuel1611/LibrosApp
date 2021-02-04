@@ -9,6 +9,7 @@ import com.example.librosapp.model.Repository;
 import com.example.librosapp.model.laravel.LibroClient;
 import com.example.librosapp.model.laravel.VentasClient;
 import com.example.librosapp.model.pojo.Libro;
+import com.example.librosapp.model.pojo.Venta;
 
 public class ViewModel extends AndroidViewModel {
 
@@ -35,6 +36,30 @@ public class ViewModel extends AndroidViewModel {
 
     public void setLibro(Libro libro) {
         this.libro = libro;
+    }
+
+    public void insertarLibro(Libro libro) {
+
+        repository.insertarLibro(libro);
+
+    }
+
+    public void insertarVenta(Venta venta, Libro libro) {
+
+        repository.insertarVenta(venta, libro);
+
+    }
+
+    public void editarLibro(long id, Libro libro) {
+
+        repository.editarLibro(id, libro);
+
+    }
+
+    public void eliminarLibro(long id) {
+
+        repository.eliminarLibro(id);
+
     }
 
 }
