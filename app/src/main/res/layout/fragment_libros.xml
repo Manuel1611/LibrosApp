@@ -34,22 +34,6 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:listitem="@layout/item_libros" />
 
-    <TextView
-        android:id="@+id/tvRvLibrosVacio"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginEnd="24dp"
-        android:fontFamily="@font/schoolbell"
-        android:textAlignment="center"
-        android:textColor="#472C06"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/rvLibros"
-        app:layout_constraintEnd_toEndOf="@+id/rvLibros"
-        app:layout_constraintStart_toStartOf="@+id/rvLibros"
-        app:layout_constraintTop_toTopOf="@+id/rvLibros" />
-
     <Button
         android:id="@+id/btVolverLibrosFrag"
         android:layout_width="wrap_content"

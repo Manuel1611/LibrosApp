@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -24,10 +25,6 @@ import com.example.librosapp.view.adapter.RecyclerVentasAdapter;
 import com.example.librosapp.viewmodel.ViewModel;
 
 import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class FragmentoVentas extends Fragment {
 
@@ -73,23 +70,16 @@ public class FragmentoVentas extends Fragment {
             }
         });
 
-        Call<List<Libro>> libroCall = viewModel.getLibroClient().getAllLibros();
-
-        libroCall.enqueue(new Callback<List<Libro>>() {
+        viewModel.mostrarLibros().observe(getActivity(), new Observer<List<Libro>>() {
             @Override
-            public void onResponse(Call<List<Libro>> call, Response<List<Libro>> response) {
+            public void onChanged(List<Libro> libroLista) {
 
-                libroList = response.body();
-
+                libroList = libroLista;
                 initRecycler(view);
 
             }
-
-            @Override
-            public void onFailure(Call<List<Libro>> call, Throwable t) {
-
-            }
         });
+
     }
 
     private void initRecycler(View view) {

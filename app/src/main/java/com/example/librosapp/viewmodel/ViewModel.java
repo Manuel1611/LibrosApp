@@ -4,12 +4,15 @@ import android.app.Application;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.MutableLiveData;
 
 import com.example.librosapp.model.Repository;
 import com.example.librosapp.model.laravel.LibroClient;
 import com.example.librosapp.model.laravel.VentasClient;
 import com.example.librosapp.model.pojo.Libro;
 import com.example.librosapp.model.pojo.Venta;
+
+import java.util.List;
 
 public class ViewModel extends AndroidViewModel {
 
@@ -18,7 +21,7 @@ public class ViewModel extends AndroidViewModel {
 
     public ViewModel(@NonNull Application application) {
         super(application);
-        repository = new Repository(application);
+        repository = new Repository();
 
     }
 
@@ -59,6 +62,12 @@ public class ViewModel extends AndroidViewModel {
     public void eliminarLibro(long id) {
 
         repository.eliminarLibro(id);
+
+    }
+
+    public MutableLiveData<List<Libro>> mostrarLibros() {
+
+        return repository.mostrarLibros();
 
     }
 

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -16,7 +17,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.TextView;
 
 import com.example.librosapp.R;
 import com.example.librosapp.model.pojo.Libro;
@@ -25,17 +25,12 @@ import com.example.librosapp.viewmodel.ViewModel;
 
 import java.util.List;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-
 public class FragmentoLibros extends Fragment {
 
     RecyclerView recyclerView;
     ViewModel viewModel;
     List<Libro> libroList;
     NavController navController;
-    TextView tvRvLibrosVacio;
     Button btAddLibro, btVolver;
 
     public FragmentoLibros() {
@@ -57,7 +52,6 @@ public class FragmentoLibros extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         recyclerView = view.findViewById(R.id.rvLibros);
-        tvRvLibrosVacio = view.findViewById(R.id.tvRvLibrosVacio);
         btAddLibro = view.findViewById(R.id.btAddLibro);
         btVolver = view.findViewById(R.id.btVolverLibrosFrag);
 
@@ -83,20 +77,12 @@ public class FragmentoLibros extends Fragment {
             }
         });
 
-        Call<List<Libro>> libroCall = viewModel.getLibroClient().getAllLibros();
-
-        libroCall.enqueue(new Callback<List<Libro>>() {
+        viewModel.mostrarLibros().observe(getActivity(), new Observer<List<Libro>>() {
             @Override
-            public void onResponse(Call<List<Libro>> call, Response<List<Libro>> response) {
+            public void onChanged(List<Libro> libroLista) {
 
-                libroList = response.body();
-
+                libroList = libroLista;
                 initRecycler(view);
-
-            }
-
-            @Override
-            public void onFailure(Call<List<Libro>> call, Throwable t) {
 
             }
         });
@@ -109,12 +95,6 @@ public class FragmentoLibros extends Fragment {
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
-
-        if(adapter.getItemCount() == 0) {
-
-            tvRvLibrosVacio.setText("No se ha encontrado ningún libro");
-
-        }
 
     }
 

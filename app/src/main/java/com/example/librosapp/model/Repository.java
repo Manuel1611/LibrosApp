@@ -1,8 +1,7 @@
 package com.example.librosapp.model;
 
-import android.content.Context;
+import androidx.lifecycle.MutableLiveData;
 
-import com.example.librosapp.R;
 import com.example.librosapp.model.laravel.LibroClient;
 import com.example.librosapp.model.laravel.VentasClient;
 import com.example.librosapp.model.pojo.Libro;
@@ -20,8 +19,9 @@ public class Repository {
 
     LibroClient libroClient;
     VentasClient ventasClient;
+    MutableLiveData<List<Libro>> libroList = new MutableLiveData<>();
 
-    public Repository(Context context) {
+    public Repository() {
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://informatica.ieszaidinvergeles.org:9024/laraveles/librosApp/public/api/")
@@ -125,6 +125,28 @@ public class Repository {
 
             }
         });
+
+    }
+
+    public MutableLiveData<List<Libro>> mostrarLibros() {
+
+        Call<List<Libro>> libroCall = libroClient.getAllLibros();
+
+        libroCall.enqueue(new Callback<List<Libro>>() {
+            @Override
+            public void onResponse(Call<List<Libro>> call, Response<List<Libro>> response) {
+
+                 libroList.setValue(response.body());
+
+            }
+
+            @Override
+            public void onFailure(Call<List<Libro>> call, Throwable t) {
+
+            }
+        });
+
+        return libroList;
 
     }
 
